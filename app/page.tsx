@@ -37,7 +37,7 @@ export default function ShareFolderCard({
   contactEmail = DEFAULT_CONTACT_EMAIL,
   contactButtonLabel = 'Leave a message here',
 }: ShareFolderCardProps) {
-  const mailtoHref = `mailto:${contactEmail}?subject=${encodeURIComponent('Message from the share page')}&body=${encodeURIComponent('Hi,\n\nLeave a message here.\n\nThanks!')}`;
+  const mailtoHref = `mailto:${contactEmail}?subject=${encodeURIComponent('Leave a message here')}&body=${encodeURIComponent('Hi,\n\nI wanted to reach out about.\n\nThanks!')}`;
   return (
     <div className={`gdf-stage ${caveat.variable} ${spaceGrotesk.variable}`}>
       <div className="gdf-grid" aria-hidden="true" />
@@ -77,8 +77,8 @@ export default function ShareFolderCard({
             </div>
 
             <div className="gdf-stamp" aria-hidden="true">
-              Hey
-              SPIDEY
+              <span className="gdf-stamp-line">Hey</span>
+              <span className="gdf-stamp-line gdf-stamp-line-strong">SPIDEY</span>
             </div>
 
             <div className="gdf-tab">
@@ -214,16 +214,34 @@ export default function ShareFolderCard({
         }
 
         .gdf-stamp {
-          position: absolute; top: -16px; right: -14px; z-index: 4;
-          width: 60px; height: 60px; border-radius: 50%;
-          border: 2px dashed rgba(215, 206, 205, 0.75);
-          color: rgb(255, 255, 255);
-          display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
-          transform: rotate(12deg) scale(1.8);
+          position: absolute; top: -18px; right: -8px; z-index: 4;
+          width: 76px; height: 44px;
+          border: 2px solid rgba(255,255,255,0.95);
+          border-radius: 10px;
+          background: rgba(14, 14, 16, 0.18);
+          color: #ffffff;
+          display: flex; flex-direction: column; align-items: center; justify-content: center;
+          gap: 2px;
+          transform: rotate(9deg) scale(1.35);
           opacity: 0;
-          font-size: 9px; font-weight: 700; letter-spacing: 0.06em;
-          background: rgba(244,243,238,0.04);
+          font-family: var(--font-label), sans-serif;
+          font-size: 7px; font-weight: 700; letter-spacing: 0.14em;
+          line-height: 1;
+          text-align: center;
+          box-shadow: 0 10px 20px rgba(0,0,0,0.18), inset 0 0 0 1px rgba(255,255,255,0.08);
+          clip-path: polygon(12% 0%, 100% 0%, 100% 62%, 88% 100%, 0% 100%, 0% 38%);
           animation: gdf-stamp-press 0.4s ease-out 1.5s forwards;
+        }
+        .gdf-stamp-line {
+          display: block;
+          transform: translateY(-1px);
+          text-transform: uppercase;
+        }
+        .gdf-stamp-line-strong {
+          font-size: 9px;
+          letter-spacing: 0.1em;
+          font-weight: 800;
+          transform: translateY(-1px);
         }
         @keyframes gdf-stamp-press {
           0% { opacity: 0; transform: rotate(12deg) scale(1.8); }
@@ -317,7 +335,20 @@ export default function ShareFolderCard({
           .gdf-doodle { display: none; }
           .gdf-body { padding: 46px 22px 28px; }
           .gdf-tab { left: 22px; width: 112px; height: 30px; }
-          .gdf-stamp { width: 52px; height: 52px; top: -12px; right: -10px; }
+          .gdf-stamp {
+            width: 64px;
+            height: 36px;
+            top: -12px;
+            right: -8px;
+            transform: rotate(9deg) scale(1.2);
+          }
+          .gdf-stamp-line {
+            font-size: 6px;
+          }
+          .gdf-stamp-line-strong {
+            font-size: 7.5px;
+            letter-spacing: 0.08em;
+          }
           .gdf-chalk-note { font-size: 20px; }
           .gdf-body h1 { font-size: 21px; }
         }
