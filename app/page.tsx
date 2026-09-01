@@ -16,12 +16,17 @@ const spaceGrotesk = Space_Grotesk({
 const DEFAULT_LINK =
   'https://drive.google.com/drive/folders/1p8Ptb4Cryz70eoas9FXT3qMZoI0ashUX?usp=sharing';
 
+// ✉️ Replace this with your real email address
+const DEFAULT_CONTACT_EMAIL = 'badisa.muralidhar@gmail.com';
+
 interface ShareFolderCardProps {
   href?: string;
   tabLabel?: string;
   title?: string;
   description?: string;
   buttonLabel?: string;
+  contactEmail?: string;
+  contactButtonLabel?: string;
 }
 
 export default function ShareFolderCard({
@@ -30,10 +35,19 @@ export default function ShareFolderCard({
   title = "Everything's inside",
   description = 'Notes, slides, and resources — all organized in one shared folder.',
   buttonLabel = 'Open the Folder',
+  contactEmail = DEFAULT_CONTACT_EMAIL,
+  contactButtonLabel = 'Leave a message here',
 }: ShareFolderCardProps) {
+  const mailtoHref = `mailto:${contactEmail}?subject=${encodeURIComponent('Message from the share page')}&body=${encodeURIComponent('Hi,\n\nI wanted to reach out about.\n\nThanks!')}`;
   return (
     <div className={`gdf-stage ${caveat.variable} ${spaceGrotesk.variable}`}>
       <div className="gdf-grid" aria-hidden="true" />
+      <img
+        src="/spider.png"
+        alt=""
+        aria-hidden="true"
+        className="gdf-spider-bg"
+      />
 
       <div className="gdf-doodle gdf-doodle-star" aria-hidden="true">
         <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor">
@@ -48,11 +62,11 @@ export default function ShareFolderCard({
 
       <div className="gdf-center-wrap">
         <div className="gdf-center">
-          <div className="gdf-chalk-note">open whenever you&apos;re ready</div>
-          <svg className="gdf-chalk-arrow" width="52" height="42" viewBox="0 0 80 60" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round">
+          {/* <div className="gdf-chalk-note">open whenever you&apos;re ready</div>
+          <svg className="gdf-chalk-arrow" width="52" height="42" viewBox="0 0 80 80" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round">
             <path d="M8 6 C 34 6, 22 40, 54 46" strokeDasharray="4 6" />
             <path d="M45 39 L 54 46 L 46 53" />
-          </svg>
+          </svg> */}
 
           <div className="gdf-folder-group">
             <div className="gdf-pushpin" aria-hidden="true">
@@ -78,13 +92,23 @@ export default function ShareFolderCard({
               <h1>{title}</h1>
               <p className="gdf-desc">{description}</p>
 
-              <a className="gdf-btn" href={href} target="_blank" rel="noopener noreferrer">
-                <span>{buttonLabel}</span>
-                <svg className="gdf-btn-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M5 12h13" />
-                  <path d="m13 6 6 6-6 6" />
-                </svg>
-              </a>
+              <div className="gdf-actions">
+                <a className="gdf-btn" href={href} target="_blank" rel="noopener noreferrer">
+                  <span>{buttonLabel}</span>
+                  <svg className="gdf-btn-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M5 12h13" />
+                    <path d="m13 6 6 6-6 6" />
+                  </svg>
+                </a>
+
+                <a className="gdf-btn gdf-btn-secondary" href={mailtoHref}>
+                  <span>{contactButtonLabel}</span>
+                  <svg className="gdf-btn-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M4 6.5h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2Z" />
+                    <path d="m3 7 9 7 9-7" />
+                  </svg>
+                </a>
+              </div>
             </div>
           </div>
 
@@ -103,18 +127,34 @@ export default function ShareFolderCard({
           position: relative;
           min-height: 100vh;
           font-family: var(--font-label), sans-serif;
-          background: radial-gradient(ellipse at 50% 28%, #21402F 0%, #12241B 78%);
+          background: linear-gradient(180deg, #7a0000 0%, #3a0000 54%, #150000 100%);
           overflow: hidden;
         }
         .gdf-grid {
           position: absolute;
-          inset: 0;
+          inset: -8%;
           pointer-events: none;
-          background-image:
-            repeating-linear-gradient(0deg, rgba(244,243,238,0.05) 0px, rgba(244,243,238,0.05) 1px, transparent 1px, transparent 56px),
-            repeating-linear-gradient(90deg, rgba(244,243,238,0.05) 0px, rgba(244,243,238,0.05) 1px, transparent 1px, transparent 56px);
-          -webkit-mask-image: radial-gradient(ellipse at 50% 42%, black 0%, transparent 72%);
-                  mask-image: radial-gradient(ellipse at 50% 42%, black 0%, transparent 72%);
+          background:
+            radial-gradient(circle at center, rgba(255,255,255,0.9) 0 1.8%, transparent 2% 100%),
+            repeating-radial-gradient(circle at center, transparent 0 9%, rgba(255,255,255,0.8) 9.4%, transparent 9.8% 17%),
+            repeating-conic-gradient(from 0deg, rgba(255,255,255,0.8) 0deg 2deg, transparent 2deg 18deg);
+          opacity: 0.12;
+          transform: scale(1.1);
+          -webkit-mask-image: radial-gradient(ellipse at center, black 0%, transparent 76%);
+                  mask-image: radial-gradient(ellipse at center, black 0%, transparent 76%);
+        }
+        .gdf-spider-bg {
+          position: absolute;
+          top: 0;
+          left: 50%;
+          transform: translateX(-50%);
+          width: min(92vw, 760px);
+          max-width: 100%;
+          height: auto;
+          opacity: 0.9;
+          pointer-events: none;
+          z-index: 0;
+          user-select: none;
         }
         .gdf-doodle { position: absolute; color: #F4F3EE; pointer-events: none; }
         .gdf-doodle-star { top: 11%; right: 15%; opacity: 0.32; transform: rotate(8deg); }
@@ -197,39 +237,75 @@ export default function ShareFolderCard({
         .gdf-tab {
           position: absolute; top: -28px; left: 30px;
           width: 136px; height: 34px;
-          background: linear-gradient(160deg, #E8C88A, #D2A85F);
+          background: linear-gradient(160deg, #ef233c, #8b0d1f);
           border-radius: 10px 10px 0 0;
           display: flex; align-items: center; justify-content: center;
-          box-shadow: 0 -3px 8px rgba(0,0,0,0.1);
+          box-shadow: 0 -3px 8px rgba(0,0,0,0.18);
           transition: transform 0.4s ease;
         }
-        .gdf-tab span { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; color: #6B4A2B; }
+        .gdf-tab span { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; color: #F8F5F1; }
         .gdf-folder-group:hover .gdf-tab { transform: translateY(-6px) rotate(-3deg); }
 
         .gdf-body {
           position: relative;
-          background: linear-gradient(165deg, #EFD29E, #E3BD82);
+          background: linear-gradient(165deg, #0d0d0f, #3b090d 50%, #22070b 100%);
+          border: 1px solid rgba(255,255,255,0.14);
           border-radius: 4px 26px 26px 26px;
           padding: 52px 32px 34px;
-          box-shadow: 0 35px 70px -25px rgba(0,0,0,0.6);
+          box-shadow: 0 35px 70px -25px rgba(0,0,0,0.75), inset 0 0 0 1px rgba(255,255,255,0.04);
           text-align: left;
         }
-        .gdf-body h1 { margin: 0 0 10px; font-size: 25px; font-weight: 700; letter-spacing: -0.01em; color: #4A3320; }
-        .gdf-desc { margin: 0 0 26px; font-size: 14.5px; line-height: 1.6; color: #6B4A2B; }
+        .gdf-body h1 { margin: 0 0 10px; font-size: 25px; font-weight: 700; letter-spacing: -0.01em; color: #F6F3EE; }
+        .gdf-desc { margin: 0 0 26px; font-size: 14.5px; line-height: 1.6; color: #f0d8d8; }
 
+        .gdf-actions {
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+        }
         .gdf-btn {
           position: relative;
           display: flex; align-items: center; justify-content: center; gap: 8px;
           width: 100%; padding: 15px 20px;
-          background: #4A3320; color: #F4E9D0;
+          background: linear-gradient(135deg, #d90b1c, #7b0918);
+          color: #F4E9D0;
           font-family: var(--font-label), sans-serif;
           font-weight: 600; font-size: 15px;
           text-decoration: none; border-radius: 10px;
-          box-shadow: 0 10px 24px -8px rgba(74,51,32,0.65), inset 0 0 0 2px rgba(244,233,208,0.14);
+          box-shadow: 0 10px 24px -8px rgba(217,11,28,0.7), inset 0 0 0 2px rgba(255,255,255,0.08);
           transition: transform 0.15s ease, box-shadow 0.3s ease;
         }
-        .gdf-btn:hover { box-shadow: 0 14px 30px -8px rgba(74,51,32,0.75), inset 0 0 0 2px rgba(244,233,208,0.25); }
+        .gdf-btn:hover { box-shadow: 0 14px 30px -8px rgba(217,11,28,0.82), inset 0 0 0 2px rgba(255,255,255,0.16); }
         .gdf-btn:active { transform: scale(0.97); }
+        .gdf-btn-secondary {
+          background: linear-gradient(135deg, rgba(255,255,255,0.12), rgba(217,11,28,0.9));
+          border: 1px solid rgba(255,255,255,0.22);
+          position: relative;
+          overflow: hidden;
+          box-shadow: 0 0 0 1px rgba(255,255,255,0.08), 0 12px 24px -10px rgba(217,11,28,0.8);
+          animation: gdf-message-pulse 2.6s ease-in-out infinite;
+        }
+        .gdf-btn-secondary::before {
+          content: "";
+          position: absolute;
+          inset: 0 auto 0 -30%;
+          width: 35%;
+          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.45), transparent);
+          transform: skewX(-22deg) translateX(-180%);
+          animation: gdf-message-shine 2.8s ease-in-out infinite;
+        }
+        .gdf-btn-secondary:hover {
+          box-shadow: 0 0 0 1px rgba(244,233,208,0.15), 0 18px 28px -12px rgba(183,116,58,0.9);
+          transform: translateY(-1px);
+        }
+        @keyframes gdf-message-pulse {
+          0%, 100% { box-shadow: 0 0 0 1px rgba(244,233,208,0.08), 0 12px 24px -10px rgba(183,116,58,0.7); }
+          50% { box-shadow: 0 0 0 1px rgba(244,233,208,0.18), 0 16px 30px -10px rgba(183,116,58,1); }
+        }
+        @keyframes gdf-message-shine {
+          0% { transform: skewX(-22deg) translateX(-180%); }
+          55%, 100% { transform: skewX(-22deg) translateX(380%); }
+        }
         .gdf-btn-arrow { transition: transform 0.25s ease; }
         .gdf-btn:hover .gdf-btn-arrow { transform: translateX(4px); }
         .gdf-btn:focus-visible { outline: 3px solid #C1443A; outline-offset: 3px; }
