@@ -77,10 +77,8 @@ export default function ShareFolderCard({
             </div>
 
             <div className="gdf-stamp" aria-hidden="true">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
-                <path d="M4 12.5 9 17.5 20 6.5" />
-              </svg>
-              ALL SET
+              Hey
+              SPIDEY
             </div>
 
             <div className="gdf-tab">
@@ -218,8 +216,8 @@ export default function ShareFolderCard({
         .gdf-stamp {
           position: absolute; top: -16px; right: -14px; z-index: 4;
           width: 60px; height: 60px; border-radius: 50%;
-          border: 2px dashed rgba(193,68,58,0.75);
-          color: #C1443A;
+          border: 2px dashed rgba(215, 206, 205, 0.75);
+          color: rgb(255, 255, 255);
           display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
           transform: rotate(12deg) scale(1.8);
           opacity: 0;
