@@ -16,7 +16,6 @@ const spaceGrotesk = Space_Grotesk({
 const DEFAULT_LINK =
   'https://drive.google.com/drive/folders/1p8Ptb4Cryz70eoas9FXT3qMZoI0ashUX?usp=sharing';
 
-// ✉️ Replace this with your real email address
 const DEFAULT_CONTACT_EMAIL = 'badisa.muralidhar@gmail.com';
 
 interface ShareFolderCardProps {
@@ -38,7 +37,7 @@ export default function ShareFolderCard({
   contactEmail = DEFAULT_CONTACT_EMAIL,
   contactButtonLabel = 'Leave a message here',
 }: ShareFolderCardProps) {
-  const mailtoHref = `mailto:${contactEmail}?subject=${encodeURIComponent('Message from the share page')}&body=${encodeURIComponent('Hi,\n\nI wanted to reach out about.\n\nThanks!')}`;
+  const mailtoHref = `mailto:${contactEmail}?subject=${encodeURIComponent('Message from the share page')}&body=${encodeURIComponent('Hi,\n\nLeave a message here.\n\nThanks!')}`;
   return (
     <div className={`gdf-stage ${caveat.variable} ${spaceGrotesk.variable}`}>
       <div className="gdf-grid" aria-hidden="true" />
